@@ -1,1 +1,3 @@
-# c-digo_livre
+# código_livre 
+
+repositório para guardar códigos praticados sobre assuntos aleátorios.
