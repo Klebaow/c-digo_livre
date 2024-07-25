@@ -1,0 +1,526 @@
+                                                                  ### praticando Livre
+
+# Loja
+
+def compra_de_produto():
+    while True:
+        try:
+            produto_nome = input('Digitar nome do produto: ').strip()
+            print('==' * 20)
+            produto_valor = float(input('Digitar valor: ').strip())
+            print('==' * 20)
+            produto = {'NOME': produto_nome, 'VALOR': produto_valor}
+
+            break
+
+        except ValueError:
+            print('Erro na entrada')
+
+    return produto
+
+
+def confirmar_compra():
+    while True:
+        try:
+            confirmar_compra = input('Digitar [S/N]: ').strip().upper()[0]
+            if confirmar_compra == 'S':
+               print('Compra confirmada')
+               print('==' * 20)
+
+               return True
+
+            elif confirmar_compra == 'N':
+                 print('Compra cancelada')
+                 print('==' * 20)
+
+                 return False
+
+        except ValueError:
+               print('Erro')
+               print('==' * 20)
+
+
+def total_gasto(lista_de_compra):
+    total = 0
+
+    for iten in lista_de_compra:
+        if 'VALOR' in iten:
+            total += iten['VALOR']
+
+    return total
+
+def main_loja():
+    print('Bem vindo a minha loja')
+    print('==' * 20)
+
+    lista_de_compras = []
+
+    while True:
+        try:
+            produto = compra_de_produto()
+            lista_de_compras.append(produto)
+
+            for iten in lista_de_compras:
+                print(f'Seus itens {iten}')
+
+            pergunta = input('Comprar mais? [S/N]').strip().upper()[0]
+            if pergunta == 'S':
+              continue
+
+            elif pergunta == 'N':
+
+                break
+
+        except ValueError:
+            print('Erro')
+
+    total = total_gasto(lista_de_compras)
+    print(f'confimar compra no valor total de {total}')
+
+    if confirmar_compra():
+       print('Volte sempre')
+
+    elif confirmar_compra():
+       print('Vamos tentar renegociar')
+
+
+# Cadrastro e verificação de informação
+
+def cadrastro_de_pessoas():
+    try:
+        entrada_nome = input('Digitar nome para cadrastro: ').strip()
+        print('==' * 20)
+        entrada_sexo = input('Digitar sexo [M/F]: ').strip().upper()[0]
+        print('==' * 20)
+        entrada_idade = int(input('Digitar idade: ').strip())
+        print('==' * 20)
+
+        pessoa = {'NOME': entrada_nome, 'SEXO': entrada_sexo, 'IDADE': entrada_idade}
+
+        return pessoa
+
+    except ValueError:
+           print('entrada inválida')
+
+
+def verificar_18(lista):
+    lista_mais_18 = []
+    for pessoa in lista:
+        if pessoa['IDADE'] >= 18:
+           lista_mais_18.append(pessoa)
+
+           return lista_mais_18
+
+
+def contar(lista):
+    quant = len(lista)
+
+    return quant
+
+
+def verificar_homem(lisyta):
+    lista_h = []
+    for pessoa in lista:
+        if pessoa['SEXO'] == 'M':
+           lista_h.append(pessoa)
+
+           return lista_h
+
+
+def verificar_menos20_mulher(lista):
+    lista_mulher20_menos = []
+    for pessoa in lista:
+        if pessoa['SEXO'] == 'F':
+           lista_mulher20_menos.append(pessoa)
+
+           return lista_mulher20_menos
+
+def main_069():
+      print('Óla sou um programa que ler idade e o sexo de várias pessoas')
+      print('==' * 20)
+
+      lista_de_pessoas = []
+
+      while True:
+
+          pessoa = cadrastro_de_pessoas()
+          lista_de_pessoas.append(pessoa)
+
+          try:
+            pergunta = input('Continuar? [S] para sim [N] para não: ').strip().upper()[0]
+            print('==' * 20)
+
+            if pergunta == 'S':
+               continue
+
+            elif pergunta == 'N':
+                 break
+
+          except ValueError:
+            print('Erro')
+            break
+
+      display(f'Lista de pessoas cadrastradas: {lista_de_pessoas}')
+      print('==' * 20)
+
+      print('''          Agora voce ja cadrastrou pessoa e vc pode escolher algumas opções de ação:
+                    (a) Quantas pessoas tem mais de 18 anos
+                    (b) Quantos homens foram cadastrados
+                    (c) Quantas mulheres tem menos de 20 anos
+                    (d) Sair
+      ''')
+
+      while True:
+           try:
+
+            entrada = input('Digitar resposta').strip()[0]
+
+
+            if entrada == 'a':
+               lista_pessoas_mais18 = verificar_18(lista_de_pessoas)
+               print('Essas são as pessoas com mais de 18 anos')
+               display(lista_pessoas_mais18)
+               print('==' * 20)
+
+            elif entrada == 'b':
+                 lista_homens = verificar_homem(lista_de_pessoas)
+                 print('Lista de honmens que foram cadastrados')
+                 display(lista_homens)
+                 print('==' * 20)
+
+            elif entrada == 'c':
+                 Lista_mulher_20menos = verificar_menos20_mulher(lista_de_pessoas)
+                 print('Lista de mulheres com menso de 20 anos')
+                 display(Lista_mulher_20menos)
+                 print('==' * 20)
+
+            elif entrada == 'd':
+                 print('Saindo... FIM')
+                 break
+
+           except ValueError:
+              print('Entrada inválida')
+
+
+# Game par ou ímpar
+
+def maquina_1_jogador_2():
+    vez_aleatoria = randint(1,2)
+    return 'machine' if vez_aleatoria == 1 else 'player'
+
+def jogada():
+    maquina = randint(1,10)
+    while True:
+     try:
+        jogador = int(input('digitar de 1 a 10: '))
+        if 1 <= jogador <= 10:
+           break
+
+     except ValueError:
+           print('Entrada invalida, digitar um numero')
+
+    return maquina + jogador
+
+def par_impa():
+    saida = randint(1,2)
+    return 'impar' if saida == 1 else 'par'
+
+def verificar_ganhador(total, escolha, vez):
+    if total % 2 == 0:
+       resultado = 'par'
+
+    else:
+       resultado = 'impar'
+
+    if escolha == resultado:
+       if vez == 'machine':
+          print('A maquina ganhou')
+
+       else:
+          print('voce ganhou')
+
+    else:
+       if vez == 'machine':
+          print('voce ganhou')
+
+       else:
+         print('A maquina ganhou')
+
+def main():
+    print('Bem vindo ao game')
+    print('==' *20)
+
+    while True:
+        vez = maquina_1_jogador_2()
+
+        if vez == 'machine':
+           escolha = par_impa()
+           print(f'A maquina escolheu {escolha}')
+           print('==' * 20)
+           vez = [escolha, 'machine']
+
+        elif vez == 'player':
+           escolha = str(input('Digitar (impa) ou (par): '))
+           print('==' * 20)
+           vez = [escolha, 'player']
+
+
+        total = jogada()
+
+        if total % 2 == 0:
+           print(f'{total} par')
+
+           if vez == ['par', 'machine']:
+              print('a maquinaa ganhou')
+
+           elif vez == ['impa', 'machine']:
+                print('Voce ganhou')
+
+           elif vez == ['par', 'player']:
+                print('Parabens você ganhou')
+
+           elif vez == ['impa', 'player']:
+                print('a maquina ganhou')
+
+           break
+
+        else:
+           print(f'{total} impa')
+
+           if vez == ['impa', 'machine']:
+              print('A maquina ganhou')
+
+           elif vez == ['par', 'machine']:
+                print('vc ganhou')
+
+           elif vez == ['par', 'player']:
+                print('a maquina ganhou')
+
+           elif vez == ['impar', 'player']:
+                print('parabens vc ganhou')
+
+           break
+
+
+# Tabuada
+
+print('Tabuada')
+print('==' *20)
+
+while True:
+    try:
+      entrada = input('Quer ver a tabuada de qual numero? ')
+      entrada = int(entrada)
+
+      if entrada == 0:
+              print('Fim do programa')
+              print('==' *20)
+              break
+
+      for x in range(1,10,1):
+          soma = x * entrada
+          print(f'{x} x {entrada} = {soma}')
+
+      print('==' * 20)
+
+    except ValueError:
+      print('Entrada invalida. tente novamente ou digite (0) para sair')
+
+
+# Programa de ler números e somar
+
+print('programa de ler numeros e soma-los !')
+print('Digitar (999) para encerar')
+print('==' *20)
+
+while True:
+   try:
+     entrada = input('Digitar numero: ')
+     print('==' *20)
+     entrada = float(entrada)
+     soma_total += 0
+
+     if entrada == 999:
+        print(f'Soma total: {soma_total:.1f}')
+        break
+
+     soma_total += entrada
+
+   except ValueError:
+     print('Entrada invalida, tente novamete ou digitar (999) para encerrar')
+
+
+# Caíxa eletrônico
+
+def sacar_dinheiro(valor, cedulas_disponiveis):
+    resultado = {
+                 100: 0,
+                 50: 0,
+                 20: 0,
+    }
+
+    for cedula in[100, 50, 20]:
+        if valor <= 0:
+           break
+
+        quantidade_disponivel = cedulas_disponiveis[cedula]
+        quantidade_necessaria = valor // cedula
+        quantidade_a_dar = min(quantidade_necessaria, quantidade_disponivel)
+        resultado[cedula] = quantidade_a_dar
+        valor -= quantidade_a_dar * cedula
+
+    if valor  != 0:
+           return None, cedulas_disponiveis
+
+    for cedula in resultado:
+            cedulas_disponiveis[cedula] -= resultado[cedula]
+
+    return resultado, cedulas_disponiveis
+
+def relatorio_estoque(cedulas_disponiveis):
+    print('Estoque de cedulas dispniveis:')
+    for cedula, quantidade in cedulas_disponiveis.items():
+        print(f'Cedulas de R$: {cedula}: {quantidade}')
+
+def recarregar_cedulas(cedulas_disponiveis):
+    print('Regarregue cedulas')
+    for cedula in cedulas_disponiveis:
+        try:
+          quantidade = int(input(f'Digite quantidade de {cedula} a adicionar R$: '))
+          if quantidade < 0:
+             raise ValueError
+
+          cedulas_disponiveis[cedula] += quantidade
+          print(f'cedulas atualizadas {cedulas_disponiveis}')
+          print('==' * 20)
+
+        except ValueError:
+          print('Quantidade invalida')
+
+def main():
+
+    cedulas_disponiveis = {
+        100: 100,
+        50: 50,
+        20: 20
+    }
+
+    while True:
+       print('Bem vindo ao caixa entronico')
+       print('==' * 20)
+       relatorio_estoque(cedulas_disponiveis)
+       print('==' * 20)
+       print('Opções')
+       print('1. Sacar dinheiro')
+       print('2. regarregar caixa')
+       print('3. relatorio do estoque de cedulas')
+       print('4. Sair')
+
+       try:
+         escolha = int(input('Digitar opção: '))
+         if escolha == 1:
+            valor = int(input('Digitar valor  para saque: '))
+
+            if valor > 0:
+              resultado, cedula_disponivel = sacar_dinheiro(valor, cedulas_disponiveis)
+              print(f'Resultado: {resultado}')
+              print('==' * 20)
+
+              if resultado is None:
+                 print(f'não foi possivel sacar valor: {valor}')
+
+              else:
+                 print(f'Resultado: {resultado}')
+                 print(f'Cédulas disponiveis: {cedulas_disponiveis}')
+
+            else:
+              print(f'Valor invalido para saque: {valor}')
+
+         elif escolha == 2:
+              recarregar_cedulas(cedulas_disponiveis)
+
+         elif escolha == 3:
+              recarregar_cedulas(cedulas_disponiveis)
+
+         elif escolha == 4:
+              print('Saindo...')
+              print('Fim')
+              print('==' * 20)
+              break
+
+       except ValueError:
+           print('Opção invalida ex')
+
+
+# fibonacci
+
+add_fibonacci = int(input('Digitar quantidade de termos: '))
+termos = add_fibonacci
+termo_1 = 0
+termo_2 = 1
+
+print(f'{termo_1} - {termo_2} - ', end='')
+while termos > 0:
+       termo_3 = termo_1 + termo_2
+       print(f'{termo_3} - ', end='')
+       termo_1 = termo_2
+       termo_2 = termo_3
+       termos -= 1
+print('Fim')
+
+
+# Gerador de progresão aritimetica
+
+print('Gerador de PA')
+print('==' * 20)
+
+primeiro = int(input('Digitar primeiro termo: '))
+razão = int(input('Digitar razão: '))
+
+cont = 1
+termo = primeiro
+total = 0
+mais = 10
+while mais != 0:
+      total = total + mais
+      while cont <= total:
+            print(f'{termo} - ',end='')
+            cont += 1
+            termo += razão
+
+      print('PAUSE',end='')
+      mais = int(input('Digitar mais?: '))
+print(f'Quantidade total de termos: {total}')
+
+# Game de adivinhar numero
+
+from random import randint
+
+computer = randint(1,10)
+possiblit = list(range(1,11))
+tentativas = 1
+
+print('Tente acertar: ' )
+n = int(input('Digitar numero de (1) a (10): '))
+
+while n != computer:
+  if n not in possiblit:
+       print('Apenas de 1 a 10')
+       n = int(input('Digitar numero de (1) a (10): '))
+
+       if n < computer:
+          print('Mais...')
+       elif n > computer:
+          print('menos...')
+
+  elif n < computer:
+      print('Mais...')
+  elif n > computer:
+       print('menos...')
+  tentativas += 1
+  print('tente novamente')
+  n = int(input('Digitar numero de (1) a (10): '))
+
+if n == computer:
+      print('Parabens')
+      print(f'tentei {tentativas} vezes')
